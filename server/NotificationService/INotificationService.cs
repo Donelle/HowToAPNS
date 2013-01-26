@@ -39,18 +39,18 @@ namespace NotificationService
 		[WebInvoke (Method = "POST", UriTemplate = "/register", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json)]
 		void Register (String recipient);
 
-		[OperationContract (IsOneWay = true), WebInvoke(Method = "POST")]
+		[OperationContract (IsOneWay = true), WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
 		void Push (String message, IEnumerable<String> recipients);
 
 		[OperationContract]
-		IEnumerable<String> GetRecipients ();
+		IEnumerable<KeyValuePair<String, String>> GetRecipients ();
 	}
 
 
 	[ServiceBehavior (IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
 	public sealed class NotificationService : INotificationService {
 		#region Fields
-		List<String> _recipients = new List<String> ();
+		Dictionary<String, String> _recipients = new Dictionary<String, String> ();
 		#endregion
 
 		#region IPusherService Members
@@ -61,13 +61,13 @@ namespace NotificationService
 			Boolean bFound = false;
 
 			_recipients.ForEach (item => {
-				if (item.Equals (recipient)) 
+				if (item.Value.Equals (recipient)) 
 					return bFound = true;
 
 				return false;
 			});
 
-			if (!bFound) _recipients.Add (recipient);
+			if (!bFound) _recipients.Add (String.Concat("Recipient_", _recipients.Count), recipient);
 		}
 
 		void INotificationService.Push (String message, IEnumerable<String> recipients)
@@ -78,7 +78,7 @@ namespace NotificationService
 			ApnsService.GetChannel ().PostNotification (message, recipients);
 		}
 
-		IEnumerable<String> INotificationService.GetRecipients ()
+		IEnumerable<KeyValuePair<String, String>> INotificationService.GetRecipients ()
 		{
 			return _recipients;
 		}

@@ -26,11 +26,12 @@ namespace NotificationService.Host {
 	using System.ServiceModel;
 	using System.Linq;
 	using System.Net.Sockets;
+	using System.ServiceModel.Web;
 
 	class Program {
 		static void Main (string[] args)
 		{
-			ServiceHost host = new ServiceHost (typeof (NotificationService));
+			WebServiceHost host = new WebServiceHost (typeof (NotificationService));
 
 			try {
 				host.Open ();

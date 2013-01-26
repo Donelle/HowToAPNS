@@ -251,13 +251,13 @@ namespace NotificationService
 			//
 			List<Byte[]> recipients = new List<Byte[]> (deviceTokens.Count ());
 			deviceTokens.ForEach (deviceToken => {
+				Int32 deviceTokenLen = deviceToken.Length / 2;
+				if (deviceTokenLen != DEVICE_TOKEN_BINARY_SIZE)
+					throw new InvalidOperationException ("Invalid device token");
 
 				Byte[] token = new Byte[DEVICE_TOKEN_BINARY_SIZE];
-				for (int i = 0; i < deviceToken.Length; i++)
+				for (int i = 0; i < deviceTokenLen; i++)
 					token[i] = byte.Parse (deviceToken.Substring (i * 2, 2), System.Globalization.NumberStyles.HexNumber);
-
-				if (deviceToken.Length != DEVICE_TOKEN_BINARY_SIZE)
-					throw new InvalidOperationException ("Invalid device token");
 
 				Byte[] tokenSize = BitConverter.GetBytes (IPAddress.HostToNetworkOrder (Convert.ToInt16 (token.Length)));
 				recipients.Add (
