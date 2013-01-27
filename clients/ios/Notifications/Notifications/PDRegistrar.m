@@ -33,7 +33,7 @@
 {
     NSString * deviceToken =  [[NSUserDefaults standardUserDefaults] valueForKey:@"deviceToken"];
     NSMutableDictionary * registration = [[NSMutableDictionary alloc] initWithCapacity:1];
-    [registration setValue:deviceToken forKey:@"deviceToken"];
+    [registration setValue:deviceToken forKey:@"recipient"];
     
     NSURLRequest * request = [self prepareRequest:host body:registration];
     NSURLConnection * connection = [NSURLConnection connectionWithRequest:request delegate:self];

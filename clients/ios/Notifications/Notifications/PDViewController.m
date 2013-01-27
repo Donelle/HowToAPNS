@@ -311,4 +311,17 @@
 }
 
 
+- (IBAction)didPressSetup:(id)sender
+{
+    UIAlertView * serverSetup = [[UIAlertView alloc] initWithTitle:@"Connect to Host"
+                                                           message:@"Enter the server information to register"
+                                                          delegate:self
+                                                 cancelButtonTitle:@"Cancel"
+                                                 otherButtonTitles:@"Register", nil];
+    
+    serverSetup.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [serverSetup textFieldAtIndex:0].placeholder = @"hostname or hostname:port";
+    [serverSetup show];
+}
+
 @end

@@ -40,13 +40,21 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="5IZ-Tg-d5N" id="rGY-CM-hZy"/>
+                                    <outlet property="delegate" destination="5IZ-Tg-d5N" id="QT2-9T-WdU"/>
+                                </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="7RM-U1-LQC">
                                 <rect key="frame" x="0.0" y="504" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <barButtonItem title="Setup" id="xGA-FI-TY7"/>
+                                    <barButtonItem title="Setup" id="xGA-FI-TY7">
+                                        <connections>
+                                            <action selector="didPressSetup:" destination="5IZ-Tg-d5N" id="t4d-JR-icU"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
@@ -73,6 +81,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PDViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didClickSetup:"/>
+                <relationship kind="action" name="didPressSetup:"/>
                 <relationship kind="outlet" name="notificationView" candidateClass="UITableView"/>
             </relationships>
         </class>

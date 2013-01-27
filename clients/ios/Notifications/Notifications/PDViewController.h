@@ -18,5 +18,6 @@
 @interface PDViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *notificationView;
+- (IBAction)didPressSetup:(id)sender;
 
 @end
