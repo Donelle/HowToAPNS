@@ -112,17 +112,17 @@ The following describes the steps you must follow in order to perform the demons
 4.openssl pkcs12 -export -in HowToNotifications.pem -out HowToNotifications.p12
 5.cp HowToNotifications.p12 /to/your/windows/filesystem/push/notification/service/
 
-To test to see if everything worked correctly enter the following commands:
+To test to see if everything worked correctly enter the following commands: 
 
 openssl s_client -connect gateway.sandbox.push.apple.com:2195 -cert aps_development.pem -key exported_key.pem
 </code></pre>
 
 
 
-
 #### Service Setup
 
-1. On your Windows system, start the **NotificationService.Host.exe** console application. After launching successfully, the console should display the current **IP address** and **port** the service is listening on. There are two ways you can execute this service and both require you to **"Run as Administrator"**
+1. On your Windows system, navigate to the **Bin** folder and edit the **NotificationService.Host.exe.config**. Locate the **\<apnsService\>** tag and set the **Certificate** attribute to the path where you copied your **HowToNotifications.p12** and set the **Password** attribute you chose for it. 
+2.Next, start the **NotificationService.Host.exe** console application. After launching successfully, the console should display the current **IP address** and **port** the service is listening on. There are two ways you can execute this service and both require you to **"Run as Administrator"**
 	* **Option 1**- Open NotificationService Visual Studio the solution and click **Debug / (F5)**
 	* **Option 2**- Execute NotificationService.Host.exe on the commandline from the `Bin` directory on the root.
 
