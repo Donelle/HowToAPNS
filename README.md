@@ -105,17 +105,17 @@ The following describes the steps you must follow in order to perform the demons
 2. After the app is open, in the Category section select **My Certificates** and locate your iPhone developer certificate. It should be similar to this: **iPhone Developer: Donelle Sanders Jr (C3W5RD3T67)**. Next to it should be a gray triangle, select it and it should unfold with a sub entry noted by a **key** icon. 
 3. Right click the sub entry and select the **Export** menu item. When prompted, save the new file in the same location as the certificate and provisioning profile that you previously downloaded. _**Note:** make sure the file extension ends with **.p12**_
 4. Now, open a **Terminal** session and change directory to where you downloaded your **aps_development.cer** and your exported developer key and enter the following commands in **order**:
-<pre><code>
-1.openssl x509 -in aps_development.cer -inform DER -out aps_development.pem -outform PEM
-2.openssl pkcs12 -nocerts -out exported_key.pem -in your_exported_key.p12
-3.cat aps_developer.pem exported_key.pem > HowToNotifications.pem
-4.openssl pkcs12 -export -in HowToNotifications.pem -out HowToNotifications.p12
-5.cp HowToNotifications.p12 /to/your/windows/filesystem/push/notification/service/
 
-To test to see if everything worked correctly enter the following commands: 
+    1. openssl x509 -in aps_development.cer -inform DER -out aps_development.pem -outform PEM
+    2. openssl pkcs12 -nocerts -out exported_key.pem -in your_exported_key.p12
+    3. cat aps_developer.pem exported_key.pem > HowToNotifications.pem
+    4. openssl pkcs12 -export -in HowToNotifications.pem -out HowToNotifications.p12
+    5. cp HowToNotifications.p12 /to/your/windows/filesystem/push/notification/service/
 
-openssl s_client -connect gateway.sandbox.push.apple.com:2195 -cert aps_development.pem -key exported_key.pem
-</code></pre>
+    To test to see if everything worked correctly enter the following commands: 
+
+    openssl s_client -connect gateway.sandbox.push.apple.com:2195 -cert HowToNotifications.pem -key exported_key.pem
+
 
 
 
