@@ -52,7 +52,7 @@ On `Microsoft Windows` systems you can open the solutions using Visual Studio an
 
 
 
-Executing the MSBuild from commandline will produce a `Bin` directory with the client and server programs in the root directory.
+Executing the `msbuild.bat` from commandline will produce a `Bin` directory with the client and server programs in the root directory.
 
 * PushNotification.exe - The client application used to prepare data to send to the iOS device
 * NotificationService.Host.exe - The server application used to facility communication between the windows client and the iOS device
@@ -77,7 +77,7 @@ This demonstration uses a Microsoft Windows client to push content to an iOS cli
 
 The Windows client provides the ability to send arbitrary text to an iOS device indirectly through a WCF endpoint which forwards the content to Apple's push service. Before the iOS device can receive content it must register with the WCF endpoint's RESTful interface so the device can be discovered. 
 
-The following describes the steps you must follow in order to perform the demonstration. 
+The following describes the steps you must follow in order to perform the demonstration. _If you find that the below instructions aren't completely clear please refer to [Apple Push Notification Services Tutorial](http://www.raywenderlich.com/3443/apple-push-notification-services-tutorial-part-12) for further help._
 
 ##### App ID Setup
 
@@ -101,14 +101,14 @@ The following describes the steps you must follow in order to perform the demons
 
 ##### App Key Setup
 
-1. Back to your desktop, open up **KeyChain Access** application from **LaunchPad** _(it should be located in the Utilities group)_
+1. Back to your `Mac OS X` desktop, open up **KeyChain Access** application from **LaunchPad** _(it should be located in the Utilities group)_
 2. After the app is open, in the Category section select **My Certificates** and locate your iPhone developer certificate. It should be similar to this: **iPhone Developer: Donelle Sanders Jr (C3W5RD3T67)**. Next to it should be a gray triangle, select it and it should unfold with a sub entry noted by a **key** icon. 
 3. Right click the sub entry and select the **Export** menu item. When prompted, save the new file in the same location as the certificate and provisioning profile that you previously downloaded. _**Note:** make sure the file extension ends with **.p12**_
 4. Now, open a **Terminal** session and change directory to where you downloaded your **aps_development.cer** and your exported developer key and enter the following commands in **order**:
 
     1. openssl x509 -in aps_development.cer -inform DER -out aps_development.pem -outform PEM
     2. openssl pkcs12 -nocerts -out exported_key.pem -in your_exported_key.p12
-    3. cat aps_developer.pem exported_key.pem > HowToNotifications.pem
+    3. cat aps_development.pem exported_key.pem > HowToNotifications.pem
     4. openssl pkcs12 -export -in HowToNotifications.pem -out HowToNotifications.p12
     5. cp HowToNotifications.p12 /to/your/windows/filesystem/push/notification/service/
 
@@ -118,21 +118,36 @@ The following describes the steps you must follow in order to perform the demons
 
 
 
-
 #### Service Setup
 
-1. On your Windows system, navigate to the **Bin** folder and edit the **NotificationService.Host.exe.config**. Locate the **\<apnsService\>** tag and set the **Certificate** attribute to the path where you copied your **HowToNotifications.p12** and set the **Password** attribute you chose for it. 
-2.Next, start the **NotificationService.Host.exe** console application. After launching successfully, the console should display the current **IP address** and **port** the service is listening on. There are two ways you can execute this service and both require you to **"Run as Administrator"**
+
+1. On your `Microsoft Windows` system, run **msbuild.bat** from the root directory where you cloned this repository.
+2. Next, navigate to the **Bin** folder and edit the **NotificationService.Host.exe.config**. Locate the **\<apnsService\>** tag and set the **Certificate** attribute to the path where you copied your **HowToNotifications.p12** and set the **Password** attribute you chose for it. 
+2. Next, start the **NotificationService.Host.exe** console application. After launching successfully, the console should display the current **IP address** and **port** the service is listening on. There are two ways you can execute this service and both require you to **"Run as Administrator"**
 	* **Option 1**- Open NotificationService Visual Studio the solution and click **Debug / (F5)**
 	* **Option 2**- Execute NotificationService.Host.exe on the commandline from the `Bin` directory on the root.
 
+
 #### Client Setup
 
-[TODO]
+1. On your `Mac OS X` system, open up the **Notifications.xcodeproj** located in the **clients -> ios -> Notifications** folder. 
+2. Next, show the Navigator pane **(command + 0)** and select the Notifications project _(which should be the first node of the tree)_.
+3. Inside the right pane locate the **TARGETS** list item and select the **Notifications** node. 
+4. Next, select the **Summary** tab if it is not selected, and under **iOS Application Target** change the **Bundle Identifier** to the name you created earlier in step 3 of the **App ID Setup**.
+5. Now, set your active scheme to your device, build, and run the project **(command + R)**
+6. After the app loads, click the button labeled **Setup** on toolbar then enter the **IP Address** that was displayed on the console of **NotificationService.Host.exe**.
+7. Next, on your `Microsoft Windows` system run the **PushNotification.exe** client. There are two ways you can execute the client:
+	* **Option 1**- Open PushNotification Visual Studio the solution and click **Debug / (F5)**
+	* **Option 2**- Execute PushNotification.exe on the commandline from the `Bin` directory on the root.
+8. Thats it! Now start sending stuff.
 
-# [WORK IN PROGRESS]
 
+## Questions?
 
+If you have any questions or comments about the tutorial please feel free to drop me a line :-).
+
+Email: <donellesanders@thepottersden.com>
+Follow Me: [@DonelleJr](https://twitter.com/DonelleJr)
 
 
 
