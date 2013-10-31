@@ -146,7 +146,7 @@ The following describes the steps you must follow in order to perform the demons
 
 If you have any questions or comments about the tutorial please feel free to drop me a line :-).
 
-Email: <donellesanders@thepottersden.com>
+Email: <donellesanders@gmail.com>
 Follow Me: [@DonelleJr](https://twitter.com/DonelleJr)
 
 
